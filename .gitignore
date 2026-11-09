@@ -44,6 +44,7 @@
 ExportedObj/
 .consulo/
 *.csproj
+!Scripts.UnitTests/Scripts.UnitTests.csproj
 *.unityproj
 *.sln
 *.slnx
@@ -58,6 +59,10 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+
+# Unit test build output
+/Scripts.UnitTests/bin/
+/Scripts.UnitTests/obj/
 
 # Unity3D generated meta files
 *.pidb.meta
