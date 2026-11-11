@@ -1,0 +1,181 @@
+:root {
+    --color-background: rgb(255, 255, 255);
+    --color-surface: rgb(189, 189, 189);
+    --color-text: rgb(0, 0, 0);
+    --color-muted: rgb(102, 102, 102);
+    --color-border: rgb(179, 179, 179);
+    --color-hover: rgb(238, 238, 238);
+    --color-pressed: rgb(221, 221, 221);
+    --color-disabled: rgb(153, 153, 153);
+    --size-small: 36px;
+    --size-medium: 48px;
+    --size-large: 56px;
+    --size-xlarge: 72px;
+    --spacing-small: 16px;
+    --spacing-medium: 32px;
+    --spacing-large: 48px;
+}
+
+.Canvas {
+    padding: var(--spacing-small);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border-width: 6px;
+    border-color: var(--color-text);
+}
+
+.Horizontal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    -unity-text-align: middle-left;
+}
+
+Label {
+    color: var(--color-text);
+    font-size: var(--size-medium);
+    text-align: center;
+    white-space: normal;
+}
+
+Button {
+    min-height: 72px;
+    padding: var(--spacing-small) var(--spacing-medium);
+    border-width: 2px;
+    border-color: var(--color-text);
+    border-radius: 0;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 36px;
+}
+
+Button:hover {
+    background-color: var(--color-hover);
+}
+
+Button:active {
+    background-color: var(--color-pressed);
+}
+
+Button:disabled {
+    border-color: var(--color-border);
+    color: var(--color-disabled);
+}
+
+TextField,
+IntegerField,
+FloatField,
+DropdownField {
+    min-height: 72px;
+    margin-bottom: var(--spacing-small);
+    border-width: 2px;
+    border-color: var(--color-border);
+    border-radius: 0;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    align-items: center;
+}
+
+.unity-base-field {
+    justify-content: space-between;
+}
+
+TextField > .unity-base-field__input,
+IntegerField > .unity-base-field__input,
+FloatField > .unity-base-field__input,
+DropdownField > .unity-base-field__input {
+    flex-basis: 50%;
+    width: 50%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    background-color: var(--color-background);
+    font-size: var(--size-small);
+}
+
+TextField,
+IntegerField,
+FloatField,
+DropdownField Label {
+    text-align: center;
+}
+
+TextField:focus,
+IntegerField:focus,
+FloatField:focus,
+DropdownField:focus {
+    border-color: var(--color-text);
+}
+
+TextField:disabled,
+IntegerField:disabled,
+FloatField:disabled,
+DropdownField:disabled {
+    color: var(--color-disabled);
+}
+
+ListView {
+    border-width: 2px;
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+}
+
+ScrollView {
+    background-color: var(--color-background);
+}
+
+Foldout {
+    color: var(--color-text);
+}
+
+TabView {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    background-color: var(--color-background);
+}
+
+.MainTabs .unity-tab-view__header {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.MainTabs .unity-tab-view__header-container {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.MainTabs .unity-tab__header {
+    flex-grow: 1;
+    min-width: 0;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+}
+
+.ExtraLargeText {
+    font-size: var(--size-xlarge);
+    -unity-font-style: bold;
+}
+
+.LargeText {
+    font-size: var(--size-large);
+    -unity-font-style: bold;
+}
+
+.MediumText {
+    font-size: var(--size-medium);
+}
+
+.SmallText {
+    font-size: var(--size-small);
+    color: var(--color-muted);
+}
+
+.YearField .unity-base-field__input {
+    background-color: var(--color-background);
+    font-size: var(--size-small);
+    flex-basis: 100%;
+    width: 100%;
+    flex-shrink: 1;
+    flex-grow: 1;
+}

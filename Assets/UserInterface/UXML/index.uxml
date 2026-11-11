@@ -1,0 +1,25 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
+    <ui:Template name="HelpScreen" src="project://database/Assets/UserInterface/UXML/HelpScreen.uxml?fileID=9197481963319205126&amp;guid=2a667747756850f4d8da9890766c3fb6&amp;type=3#HelpScreen"/>
+    <ui:Template name="HomeScreen" src="project://database/Assets/UserInterface/UXML/HomeScreen.uxml?fileID=9197481963319205126&amp;guid=7b755194a42c818479bb7ea0c5f9bb72&amp;type=3#HomeScreen"/>
+    <ui:Template name="SummaryScreen" src="project://database/Assets/UserInterface/UXML/SummaryScreen.uxml?fileID=9197481963319205126&amp;guid=98f35e3fc47fbba4fba969bd17c8c69e&amp;type=3#SummaryScreen"/>
+    <ui:Template name="SwitchBusinessScreen" src="project://database/Assets/UserInterface/UXML/SwitchBusinessScreen.uxml?fileID=9197481963319205126&amp;guid=892ebb9307160e44a8d0233ab69c8127&amp;type=3#SwitchBusinessScreen"/>
+    <ui:Template name="TransactionsScreen" src="project://database/Assets/UserInterface/UXML/TransactionsScreen.uxml?fileID=9197481963319205126&amp;guid=9075700cffe17f04fb975a5794968d33&amp;type=3#TransactionsScreen"/>
+    <ui:TabView class="MainTabs">
+        <ui:Tab label="Home" name="HomeScreen">
+            <ui:Instance template="HomeScreen"/>
+        </ui:Tab>
+        <ui:Tab label="Transactions" name="TransactionsScreen">
+            <ui:Instance template="TransactionsScreen"/>
+        </ui:Tab>
+        <ui:Tab label="Summary" name="SummaryScreen">
+            <ui:Instance template="SummaryScreen"/>
+        </ui:Tab>
+        <ui:Tab label="Help" name="HelpScreen">
+            <ui:Instance template="HelpScreen"/>
+        </ui:Tab>
+        <ui:Tab label="Switch Business" name="SwitchBusinessScreen">
+            <ui:Instance template="SwitchBusinessScreen"/>
+        </ui:Tab>
+    </ui:TabView>
+</ui:UXML>

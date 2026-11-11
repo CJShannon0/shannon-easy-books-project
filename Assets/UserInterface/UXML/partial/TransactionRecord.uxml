@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
+    <ui:VisualElement name="" class="Canvas" style="flex-grow: 1;">
+        <ui:VisualElement name="" class="Horizontal" style="flex-grow: 1;">
+            <ui:Label text="January 1, 2026" name="DateText"/>
+            <ui:Button text="Edit" name="EditButton"/>
+        </ui:VisualElement>
+        <ui:Label text="Vendor -------" name="VendorText"/>
+        <ui:VisualElement name="" class="Horizontal" style="flex-grow: 1;">
+            <ui:Label text="Category: " name="CategoryText"/>
+            <ui:FloatField label="" value="0" placeholder-text="0.00"/>
+        </ui:VisualElement>
+        <ui:Foldout text="Notes">
+            <ui:Label text="Notes Text" name="NotesText"/>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>
