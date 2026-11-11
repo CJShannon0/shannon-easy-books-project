@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+        <ui:Label text="Add a Transaction"/>
+        <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField"/>
+        <ui:FloatField label="Amount" value="0" name="AmountField" placeholder-text="0.00"/>
+        <ui:DropdownField label="Category" name="CategoryField"/>
+        <ui:TextField label="Notes" placeholder-text="enter here..." name="NotesField"/>
+    </ui:VisualElement>
+</ui:UXML>

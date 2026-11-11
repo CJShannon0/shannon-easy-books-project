@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+        <ui:Label text="Summary" name="LargeText"/>
+        <ui:VisualElement name="Horizontal" style="flex-grow: 1;">
+            <ui:IntegerField label="" value="2026"/>
+            <ui:Button text="&lt;" name="YearButton"/>
+            <ui:Button text="&gt;" name="YearButton"/>
+        </ui:VisualElement>
+        <ui:ListView name="SummaryListView"/>
+        <ui:Button text="Export" name="ExportButton"/>
+    </ui:VisualElement>
+</ui:UXML>
