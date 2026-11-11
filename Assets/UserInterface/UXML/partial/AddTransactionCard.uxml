@@ -2,6 +2,7 @@
     <ui:VisualElement name="Canvas" style="flex-grow: 1;">
         <ui:Label text="Add a Transaction"/>
         <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField"/>
+        <ui:TextField label="Date" placeholder-text="MM/DD/YYYY" name="DateField"/>
         <ui:FloatField label="Amount" value="0" name="AmountField" placeholder-text="0.00"/>
         <ui:DropdownField label="Category" name="CategoryField"/>
         <ui:TextField label="Notes" placeholder-text="enter here..." name="NotesField"/>

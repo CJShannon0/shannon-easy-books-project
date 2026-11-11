@@ -1,0 +1,16 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+        <ui:VisualElement name="Horizontal" style="flex-grow: 1;">
+            <ui:Label text="January 1, 2026" name="DateText"/>
+            <ui:Button text="Edit" name="EditButton"/>
+        </ui:VisualElement>
+        <ui:Label text="Vendor -------" name="VendorText"/>
+        <ui:VisualElement name="Horizontal" style="flex-grow: 1;">
+            <ui:Label text="Category" name="CategoryText"/>
+            <ui:FloatField label="" value="0" placeholder-text="0.00"/>
+        </ui:VisualElement>
+        <ui:Foldout text="Notes">
+            <ui:Label text="Notes Text" name="NotesText"/>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

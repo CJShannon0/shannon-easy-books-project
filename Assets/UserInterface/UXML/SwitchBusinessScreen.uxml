@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+        <ui:Label text="Use the dropdown menu to select your business, or click &apos;Add Business&apos;, to add a new one."/>
+        <ui:Label text="SwitchBusiness"/>
+        <ui:DropdownField label="Business Selected" name="BusinessDropdown"/>
+        <ui:Button text="SwitchBusiness" name="AddBusinessButton"/>
+    </ui:VisualElement>
+</ui:UXML>
