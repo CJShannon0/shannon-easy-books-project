@@ -1,9 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="AddTransactionCard" src="project://database/Assets/UserInterface/UXML/AddTransactionCard.uxml?fileID=9197481963319205126&amp;guid=93005d64617e7d0488471025489bb027&amp;type=3#AddTransactionCard"/>
-    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+    <ui:Template name="AddTransactionCard" src="project://database/Assets/UserInterface/UXML/partial/AddTransactionCard.uxml?fileID=9197481963319205126&amp;guid=93005d64617e7d0488471025489bb027&amp;type=3#AddTransactionCard"/>
+    <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
+    <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:ScrollView>
-            <ui:Label text="Business: None"/>
-            <ui:Label text="Welcome to Easy Books"/>
+            <ui:Label text="Welcome to Easy Books" name="" class="ExtraLargeText"/>
+            <ui:Label text="Business: None" name="BusinessText" class="LargeText"/>
             <ui:Instance template="AddTransactionCard"/>
         </ui:ScrollView>
     </ui:VisualElement>
