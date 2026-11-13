@@ -1,7 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="AddTransactionCard" src="project://database/Assets/UserInterface/UXML/partial/AddTransactionCard.uxml?fileID=9197481963319205126&amp;guid=93005d64617e7d0488471025489bb027&amp;type=3#AddTransactionCard"/>
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
-    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
-        <ui:Label text="Transaction Record" name="LargeText"/>
-        <ui:ListView/>
+    <ui:VisualElement name="" style="flex-grow: 1;">
+        <ui:Label text="Transaction Record" name=""/>
+        <ui:ListView name="TransactionList"/>
+        <ui:Button text="Add" name="OpenPopupButton" style="width: 50%; align-self: flex-end;"/>
+        <ui:Instance template="AddTransactionCard" class="popup"/>
     </ui:VisualElement>
 </ui:UXML>

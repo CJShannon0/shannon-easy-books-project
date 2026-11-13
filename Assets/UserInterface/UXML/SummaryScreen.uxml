@@ -1,11 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
-    <ui:VisualElement name="Canvas" style="flex-grow: 1;">
+    <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:Label text="Summary" name=""/>
         <ui:VisualElement name="" class="Horizontal" style="justify-content: flex-start; align-items: flex-start; align-self: flex-start;">
-            <ui:Button text="&lt;" name="YearButton"/>
-            <ui:IntegerField label="" value="2026" class="YearField" style="font-size: 44px; width: auto; align-items: center;"/>
-            <ui:Button text="&gt;" name="YearButton"/>
+            <ui:Button text="&lt;" name="YearButton_L"/>
+            <ui:IntegerField label="" value="2026" name="YearIntField" class="YearField" style="font-size: 44px; width: auto; align-items: center;"/>
+            <ui:Button text="&gt;" name="YearButton_R"/>
         </ui:VisualElement>
         <ui:ListView name="SummaryListView"/>
         <ui:Button text="Export" name="ExportButton" style="align-self: flex-end;"/>
