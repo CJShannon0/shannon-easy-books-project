@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="..\Assets\Scripts\UIManager.cs" Link="UIManager.cs" />
+  </ItemGroup>
+
 </Project>
