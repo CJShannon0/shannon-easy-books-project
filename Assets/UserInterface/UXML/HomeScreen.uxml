@@ -1,10 +1,17 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="AddTransactionCard" src="project://database/Assets/UserInterface/UXML/partial/AddTransactionCard.uxml?fileID=9197481963319205126&amp;guid=93005d64617e7d0488471025489bb027&amp;type=3#AddTransactionCard"/>
+    <ui:Template name="AddTransactionCard" src="project://database/Assets/UserInterface/UXML/partial/AddTransactionHome.uxml?fileID=9197481963319205126&amp;guid=93005d64617e7d0488471025489bb027&amp;type=3#AddTransactionHome"/>
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
     <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:ScrollView>
             <ui:Label text="Welcome to Easy Books" name="" class="ExtraLargeText"/>
-            <ui:Label text="Business: None" name="BusinessText" class="LargeText"/>
+            <ui:VisualElement class="Horizontal" style="flex-grow: 1; justify-content: flex-start;">
+                <ui:Label text="Business:" class="LargeText"/>
+                <ui:Label text="None" name="BusinessText" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="LargeText">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="businessSelected" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
             <ui:Instance template="AddTransactionCard"/>
         </ui:ScrollView>
     </ui:VisualElement>

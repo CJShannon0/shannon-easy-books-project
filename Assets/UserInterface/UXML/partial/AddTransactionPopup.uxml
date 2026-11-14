@@ -1,0 +1,37 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
+    <ui:VisualElement name="" class="Canvas">
+        <ui:VisualElement class="Horizontal" style="flex-grow: 1;">
+            <ui:Label text="Add a Transaction"/>
+            <ui:VisualElement class="Horizontal" style="flex-grow: 1; justify-content: flex-end;">
+                <ui:Button text="Add" name="AddTransactionButton"/>
+                <ui:Button text="Cancel" name="CancelButton"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="vendor" binding-mode="ToSource"/>
+            </Bindings>
+        </ui:TextField>
+        <ui:TextField label="Date" placeholder-text="MM/DD/YYYY" name="DateField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="date" binding-mode="ToSource"/>
+            </Bindings>
+        </ui:TextField>
+        <ui:FloatField label="Amount" value="0" name="AmountField" placeholder-text="0.00" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="amount" binding-mode="ToSource"/>
+            </Bindings>
+        </ui:FloatField>
+        <ui:DropdownField label="Category" name="CategoryField" index="0" choices="Sales,Services,Inventory,Advertising,Commissions/Fees,Contract Labor,Employee Benefits,Health Insurance,Other Insurance,Mortgage Interest,Other Interest,Legal &amp; Professional Fees,Office Expenses,Pension/Profit Sharing,Rent of Machinery,Other Rent,Repairs &amp; Maintenance,Supplies,Taxes/Licenses,Travel,Meals,Utilities,Wages Less Employment Credit,Other" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+            <Bindings>
+                <ui:DataBinding property="index" data-source-path="category" binding-mode="ToSource"/>
+            </Bindings>
+        </ui:DropdownField>
+        <ui:TextField label="Notes" placeholder-text="enter here..." name="NotesField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="notes" binding-mode="ToSource"/>
+            </Bindings>
+        </ui:TextField>
+    </ui:VisualElement>
+</ui:UXML>
