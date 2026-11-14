@@ -23,6 +23,7 @@
     border-width: 6px;
     border-color: var(--color-text);
     flex-grow: 1;
+    justify-content: center;
 }
 
 .Horizontal {
@@ -187,4 +188,8 @@ TabView {
 
 .popup {
     position: absolute;
+}
+
+.unity-base-dropdown__label {
+    font-size: var(--size-small);
 }

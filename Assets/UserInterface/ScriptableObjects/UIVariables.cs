@@ -6,14 +6,14 @@ using UnityEngine;
 public class UIVariables : ScriptableObject
 {
     //Logic Variables
-    List<string> businessesList;
-    int businessSelected;
-    int yearSelected;
+    public List<string> businessesList;
+    public string businessSelected;
+    public int yearSelected;
 
     //Transaction temp variables
-    string vendor;
-    string date;
-    string amount;
-    string category;
-    string notes;
+    public string vendor;
+    public string date;
+    public float amount;
+    public int category;
+    public string notes;
 }

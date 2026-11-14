@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,8 +14,10 @@ public class UIManager : MonoBehaviour
     private Button _year_L;
     private Button _year_R;
     private IntegerField _yearField;
+    private Tab _summaryTab;
     private ListView _summaryList;
     private Button _exportButton;
+    private DropdownField _businessDropdown;
     private Button _addBusinessButton;
     private List<Button> _addTransButtons;
     private List<Button> _cancelButtons;
@@ -25,6 +29,7 @@ public class UIManager : MonoBehaviour
     {
         SetVisualElements();
         RegisterUICallbacks();
+        UpdateBusinessList();
     }
 
     private void SetVisualElements()
@@ -36,7 +41,9 @@ public class UIManager : MonoBehaviour
         _year_L = _root.Q<Button>(name:"YearButton_L");
         _year_R = _root.Q<Button>(name:"YearButton_R");
         _yearField = _root.Q<IntegerField>(name:"YearIntField");
+        _summaryTab = _root.Q<Tab>(name:"SummaryScreen");
         _summaryList = _root.Q<ListView>(name:"SummaryListView");
+        _businessDropdown = _root.Q<DropdownField>(name:"BusinessDropdown");
         _exportButton = _root.Q<Button>(name:"ExportButton");
         _addBusinessButton = _root.Q<Button>(name:"AddBusinessButton");
 
@@ -49,12 +56,16 @@ public class UIManager : MonoBehaviour
     private void RegisterUICallbacks()
     {
         _year_L.clicked += () => ChangeYear(-1);
+        _year_L.clicked += () => UpdateSummary(); //If event order is non-ordered, register updateSummary() to a yearField value changed event.
         _year_R.clicked += () => ChangeYear(1);
+        _year_R.clicked += () => UpdateSummary();
 
         _openPopupButton.clicked += () => OpenPopup();
 
+        _summaryTab.selected += (Tab tab) => UpdateSummary();
         _exportButton.clicked += () => ExportSummary();
 
+        _businessDropdown.RegisterValueChangedCallback(evt => UpdateBusiness());
         _addBusinessButton.clicked += () => AddBusiness();
 
         foreach(Button b in _addTransButtons)
@@ -80,7 +91,22 @@ public class UIManager : MonoBehaviour
         
     }
 
+    private void UpdateSummary()
+    {
+        
+    }
+
     private void ExportSummary()
+    {
+        
+    }
+
+    private void UpdateBusinessList()
+    {
+        
+    }
+
+    private void UpdateBusiness()
     {
         
     }

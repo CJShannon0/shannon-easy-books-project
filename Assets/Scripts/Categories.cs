@@ -1,0 +1,30 @@
+public enum Categories
+{
+    //Revenue
+    Sale,
+    Services,
+
+    //Expenses
+    Inventory,
+    Advertising,
+    Comissions_fees,
+    Contract_Labor,
+    Employee_Benefits,
+    Health_Insurance,
+    Other_Insurance,
+    Mortgage_Interest,
+    Other_Interest,
+    Legal_Professional_Fees,
+    Office_Expenses,
+    Pension_Profit_Sharing,
+    Rent_of_Machinery,
+    Rent_Other,
+    Repairs_Maintenance,
+    Supplies,
+    Taxes_Liscenses,
+    Travel,
+    Meals,
+    Utilities,
+    Wages_Less_Employment_Credit,
+    Other
+}
