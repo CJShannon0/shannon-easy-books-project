@@ -4,6 +4,17 @@ namespace Unity.VisualScripting
 
 namespace UnityEngine
 {
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class CreateAssetMenuAttribute : Attribute
+    {
+        public string fileName { get; set; } = string.Empty;
+        public string menuName { get; set; } = string.Empty;
+    }
+
+    public class ScriptableObject
+    {
+    }
+
     public class MonoBehaviour
     {
         public object? Component { get; set; }
@@ -12,6 +23,17 @@ namespace UnityEngine
         {
             return Component as T ?? throw new InvalidOperationException($"No component of type {typeof(T).Name} is attached.");
         }
+    }
+
+    public static class Application
+    {
+        public static string persistentDataPath => Path.GetTempPath();
+    }
+
+    public static class Debug
+    {
+        public static void Log(object? message) { }
+        public static void LogError(object? message) { }
     }
 }
 
@@ -81,6 +103,8 @@ namespace UnityEngine.UIElements
     public class IntegerField : VisualElement
     {
         public IntegerField(string name) : base(name) { }
+
+        public int value { get; set; }
     }
 
     public class Tab : VisualElement

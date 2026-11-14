@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
+    public UIVariables vars;
     //global variables
     private VisualElement _root;
     private Label _busSelectedText;
@@ -27,6 +28,8 @@ public class UIManager : MonoBehaviour
     //Runs on startup
     public void Start()
     {
+        TransactionIO.Initialize(vars);
+        ResetScriptableObject();
         SetVisualElements();
         RegisterUICallbacks();
         UpdateBusinessList();
@@ -35,20 +38,20 @@ public class UIManager : MonoBehaviour
     private void SetVisualElements()
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _busSelectedText = _root.Q<Label>(name:"BusinessText");
-        _transactionList = _root.Q<ListView>(name:"TransactionList");
-        _openPopupButton = _root.Q<Button>(name:"OpenPopupButton");
-        _year_L = _root.Q<Button>(name:"YearButton_L");
-        _year_R = _root.Q<Button>(name:"YearButton_R");
-        _yearField = _root.Q<IntegerField>(name:"YearIntField");
-        _summaryTab = _root.Q<Tab>(name:"SummaryScreen");
-        _summaryList = _root.Q<ListView>(name:"SummaryListView");
-        _businessDropdown = _root.Q<DropdownField>(name:"BusinessDropdown");
-        _exportButton = _root.Q<Button>(name:"ExportButton");
-        _addBusinessButton = _root.Q<Button>(name:"AddBusinessButton");
+        _busSelectedText = _root.Q<Label>("BusinessText");
+        _transactionList = _root.Q<ListView>("TransactionList");
+        _openPopupButton = _root.Q<Button>("OpenPopupButton");
+        _year_L = _root.Q<Button>("YearButton_L");
+        _year_R = _root.Q<Button>("YearButton_R");
+        _yearField = _root.Q<IntegerField>("YearIntField");
+        _summaryTab = _root.Q<Tab>("SummaryScreen");
+        _summaryList = _root.Q<ListView>("SummaryListView");
+        _businessDropdown = _root.Q<DropdownField>("BusinessDropdown");
+        _exportButton = _root.Q<Button>("ExportButton");
+        _addBusinessButton = _root.Q<Button>("AddBusinessButton");
 
-        _addTransButtons = _root.Query<Button>(name:"AddTransactionButton").ToList();
-        _cancelButtons = _root.Query<Button>(name:"CancelButton").ToList();
+        _addTransButtons = _root.Query<Button>("AddTransactionButton").ToList();
+        _cancelButtons = _root.Query<Button>("CancelButton").ToList();
 
         //Edit transaction buttons need to be set after the list is constructed
     }
@@ -80,54 +83,70 @@ public class UIManager : MonoBehaviour
         //Edit transaction buttons need to be registered need to be set after the list is contructed
     }
 
-
+    private void ResetScriptableObject()
+    {
+        vars.vendor = null;
+        vars.date = null;
+        vars.amount = 0;
+        vars.category = 0;
+        vars.notes = null;
+    }
     private void ChangeYear(int amount)
     {
-        
+        Debug.Log("change year event triggered");
+        _yearField.value += amount;
     }
 
     private void OpenPopup()
     {
-        
+        Debug.Log("open popup event triggered");
     }
 
     private void UpdateSummary()
     {
-        
+        Debug.Log("update summary event triggered");
     }
 
     private void ExportSummary()
     {
-        
+        Debug.Log("export summary event triggered");
     }
 
     private void UpdateBusinessList()
     {
-        
+        Debug.Log("update business list event triggered");
     }
 
     private void UpdateBusiness()
     {
-        
+        Debug.Log("update business event triggered");
     }
 
     private void AddBusiness()
     {
-        
+        Debug.Log("add business event triggered");
     }
 
     private void AddTransaction()
     {
-        
+        Debug.Log("add transaction event triggered");
+        bool success = TransactionIO.InputTransaction();
+        if(success) ResetScriptableObject();
+        else
+        {
+            //create error message, not part of MVP
+        }
     }
 
     private void CancelTransaction()
     {
-        
+        Debug.Log("cancel transaction event triggered");
+        ResetScriptableObject();
+        //Close popup window
     }
 
     private void EditTransaction()
     {
-        
+        Debug.Log("edit transaction event triggered");
     }
 }

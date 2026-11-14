@@ -147,4 +147,65 @@ public class UIManager_Tests
         return Path.Combine(projectRoot, relativePath.Replace('/', Path.DirectorySeparatorChar));
     }
     #endregion
+    #region Transaction IO Tests
+
+    [Theory]
+    [InlineData("1/2/2024")]
+    [InlineData("01/2/2024")]
+    [InlineData("1/02/2024")]
+    [InlineData("01/02/2024")]
+    public void TestVarFormats_ReturnsTrueForSupportedDateFormats(string date)
+    {
+        var variables = CreateTransactionVariables(date: date);
+
+        Assert.True(InvokeTestVarFormats(variables));
+    }
+
+    [Theory]
+    [InlineData(-1, 0, "vendor", "01/02/2024")]
+    [InlineData(1, -1, "vendor", "01/02/2024")]
+    [InlineData(1, 0, null, "01/02/2024")]
+    [InlineData(1, 0, "vendor", null)]
+    [InlineData(1, 0, "vendor", "2024-01-02")]
+    public void TestVarFormats_ReturnsFalseForInvalidValues(
+        float amount,
+        int category,
+        string? vendor,
+        string? date)
+    {
+        var variables = CreateTransactionVariables(amount, category, vendor, date);
+
+        Assert.False(InvokeTestVarFormats(variables));
+    }
+
+    private static UIVariables CreateTransactionVariables(
+        float amount = 1,
+        int category = 0,
+        string? vendor = "vendor",
+        string? date = "01/02/2024")
+    {
+        return new UIVariables
+        {
+            amount = amount,
+            category = category,
+            vendor = vendor!,
+            date = date!
+        };
+    }
+
+    private static bool InvokeTestVarFormats(UIVariables variables)
+    {
+        var variablesField = typeof(TransactionIO).GetField(
+            "vars",
+            BindingFlags.Static | BindingFlags.NonPublic);
+        Assert.NotNull(variablesField);
+        variablesField.SetValue(null, variables);
+
+        var testMethod = typeof(TransactionIO).GetMethod(
+            "TestVarFormats",
+            BindingFlags.Static | BindingFlags.NonPublic);
+        Assert.NotNull(testMethod);
+        return Assert.IsType<bool>(testMethod.Invoke(null, null));
+    }
+    #endregion
 }
