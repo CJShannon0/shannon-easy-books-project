@@ -5,6 +5,6 @@
         <ui:Label text="Transaction Record" name=""/>
         <ui:ListView name="TransactionList"/>
         <ui:Button text="Add" name="OpenPopupButton" style="width: 50%; align-self: flex-end;"/>
-        <ui:Instance template="AddTransactionCard" class="popup"/>
+        <ui:Instance template="AddTransactionCard" class="popup hidden" style="top: 25%; left: 25%;"/>
     </ui:VisualElement>
 </ui:UXML>
