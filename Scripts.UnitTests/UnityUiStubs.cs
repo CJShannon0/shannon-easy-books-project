@@ -39,6 +39,12 @@ namespace UnityEngine
 
 namespace UnityEngine.UIElements
 {
+    public enum CollectionVirtualizationMethod
+    {
+        FixedHeight,
+        DynamicHeight
+    }
+
     public class VisualElement
     {
         private readonly List<VisualElement> _children = new();
@@ -89,11 +95,20 @@ namespace UnityEngine.UIElements
     public class Label : VisualElement
     {
         public Label(string name) : base(name) { }
+
+        public string text { get; set; } = string.Empty;
     }
 
     public class ListView : VisualElement
     {
         public ListView(string name) : base(name) { }
+
+        public object? itemsSource { get; set; }
+        public Func<VisualElement>? makeItem { get; set; }
+        public Action<VisualElement, int>? bindItem { get; set; }
+        public CollectionVirtualizationMethod virtualizationMethod { get; set; }
+
+        public void Rebuild() { }
     }
 
     public class Button : VisualElement
@@ -110,6 +125,20 @@ namespace UnityEngine.UIElements
         public int value { get; set; }
     }
 
+    public class FloatField : VisualElement
+    {
+        public FloatField(string name) : base(name) { }
+
+        public float value { get; set; }
+    }
+
+    public class TextField : VisualElement
+    {
+        public TextField(string name) : base(name) { }
+
+        public string? value { get; set; }
+    }
+
     public class Tab : VisualElement
     {
         public Tab(string name) : base(name) { }
@@ -120,6 +149,9 @@ namespace UnityEngine.UIElements
     public class DropdownField : VisualElement
     {
         public DropdownField(string name) : base(name) { }
+
+        public List<string> choices { get; set; } = new();
+        public int index { get; set; }
 
         public void RegisterValueChangedCallback(Action<ChangeEvent<string>> callback) { }
     }
@@ -136,5 +168,13 @@ namespace UnityEngine.UIElements
         }
 
         public VisualElement rootVisualElement { get; }
+    }
+
+    public class VisualTreeAsset
+    {
+        public VisualElement CloneTree()
+        {
+            return new VisualElement();
+        }
     }
 }

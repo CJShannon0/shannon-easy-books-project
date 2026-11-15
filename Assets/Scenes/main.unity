@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   vars: {fileID: 11400000, guid: b5c4d9e43c0bb5d4590ce57b048f76ee, type: 2}
+  template: {fileID: 9197481963319205126, guid: 59cf70c632120ef4296415fe4c0852e1, type: 3}
 --- !u!114 &1294172503
 MonoBehaviour:
   m_ObjectHideFlags: 0

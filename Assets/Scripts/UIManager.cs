@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
-using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;

@@ -129,6 +129,7 @@ public class UIManager_Tests
             "ListView" => new ListView(name),
             "Button" => new Button(name),
             "IntegerField" => new IntegerField(name),
+            "TextField" => new TextField(name),
             "Tab" => new Tab(name),
             "DropdownField" => new DropdownField(name),
             _ => new VisualElement(name)
