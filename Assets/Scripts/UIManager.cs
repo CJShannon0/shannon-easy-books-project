@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     private ListView _summaryList;
     private Button _exportButton;
     private DropdownField _businessDropdown;
+    private TextField _addBusinessField;
     private Button _addBusinessButton;
     private List<Button> _addTransButtons;
     private List<Button> _cancelButtons;
@@ -55,6 +56,7 @@ public class UIManager : MonoBehaviour
         _summaryList = _root.Q<ListView>("SummaryListView");
         _businessDropdown = _root.Q<DropdownField>("BusinessDropdown");
         _exportButton = _root.Q<Button>("ExportButton");
+        _addBusinessField = _root.Q<TextField>("AddBusinessField");
         _addBusinessButton = _root.Q<Button>("AddBusinessButton");
 
         _addTransButtons = _root.Query<Button>("AddTransactionButton").ToList();
@@ -126,19 +128,34 @@ public class UIManager : MonoBehaviour
         Debug.Log("export summary event triggered");
     }
 
+    //Used to populate dropdown menu
     private void UpdateBusinessList()
     {
         Debug.Log("update business list event triggered");
+        _businessDropdown.choices = new List<string>();
+        _businessDropdown.choices = vars.businessesList;
+        _businessDropdown.index = vars.businessIndex;
     }
 
     private void UpdateBusiness()
     {
         Debug.Log("update business event triggered");
+        vars.businessIndex = _businessDropdown.index;
+        vars.businessSelected = vars.businessesList[vars.businessIndex];
+        TransactionIO.UpdateIOPaths();
     }
 
     private void AddBusiness()
     {
         Debug.Log("add business event triggered");
+
+        string newBusiness = _addBusinessField.value;
+        if(newBusiness != null && !vars.businessesList.Contains(newBusiness))
+        {
+            vars.businessesList.Add(newBusiness);
+            _addBusinessField.value = null;
+            UpdateBusinessList();
+        }
     }
 
     private void AddTransaction()

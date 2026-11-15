@@ -13,6 +13,11 @@ public static class TransactionIO
     static string specificPath;
     static StreamReader fileOutput;
     static StreamWriter fileInput;
+    private static readonly string[] DateFormats =
+    {
+        "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy", "MM/dd/yyyy", "MMddyyyy"
+    };
+
     public static void Initialize(UIVariables scriptableObject, VisualTreeAsset temp)
     {
         vars = scriptableObject;
@@ -42,7 +47,9 @@ public static class TransactionIO
         }
         try
         {        
-            newTrans.Append(vars.date + ",");
+            newTrans.Append(
+                DateTime.ParseExact(vars.date, DateFormats, null, System.Globalization.DateTimeStyles.None)
+                    .ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) + ",");
             newTrans.Append(vars.vendor + ",");
             newTrans.Append(vars.category.ToString() + ",");
             newTrans.Append(vars.amount.ToString() + ",");
@@ -140,9 +147,8 @@ public static class TransactionIO
         }
 
         //parse date for correct format
-        var formats = new[] { "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy", "MM/dd/yyyy", "MMddyyyy"};
         DateTime dt;
-        if (!DateTime.TryParseExact(vars.date, formats, null, System.Globalization.DateTimeStyles.None, out dt))
+        if (!DateTime.TryParseExact(vars.date, DateFormats, null, System.Globalization.DateTimeStyles.None, out dt))
         {
             Debug.LogError("Date is not in the correct format");
             return false;

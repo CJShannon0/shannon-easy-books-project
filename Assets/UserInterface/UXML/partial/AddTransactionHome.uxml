@@ -7,12 +7,12 @@
                 <ui:Button text="Add" name="AddTransactionButton"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
+        <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField" multiline="true" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
             <Bindings>
                 <ui:DataBinding property="value" data-source-path="vendor" binding-mode="TwoWay"/>
             </Bindings>
         </ui:TextField>
-        <ui:TextField label="Date" placeholder-text="MM/DD/YYYY" name="DateField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
+        <ui:TextField label="Date" placeholder-text="MM/DD/YYYY" name="DateField" multiline="true" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
             <Bindings>
                 <ui:DataBinding property="value" data-source-path="date" binding-mode="TwoWay"/>
             </Bindings>
@@ -27,7 +27,7 @@
                 <ui:DataBinding property="index" data-source-path="category" binding-mode="TwoWay"/>
             </Bindings>
         </ui:DropdownField>
-        <ui:TextField label="Notes" placeholder-text="enter here..." name="NotesField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
+        <ui:TextField label="Notes" placeholder-text="enter here..." name="NotesField" multiline="true" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">
             <Bindings>
                 <ui:DataBinding property="value" data-source-path="notes" binding-mode="TwoWay"/>
             </Bindings>

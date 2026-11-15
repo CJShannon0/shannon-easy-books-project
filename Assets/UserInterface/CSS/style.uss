@@ -90,6 +90,10 @@ DropdownField > .unity-base-field__input {
     font-size: var(--size-small);
 }
 
+TextField .unity-base-text-field__input {
+    white-space: normal;
+}
+
 .InputField > .unity-base-field__input {
     flex-basis: 50%;
     width: 50%;
