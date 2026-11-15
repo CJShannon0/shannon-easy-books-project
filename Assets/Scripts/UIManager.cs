@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,10 +8,13 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public UIVariables vars;
+    public VisualTreeAsset template;
     //global variables
     private VisualElement _root;
     private Label _busSelectedText;
     private ListView _transactionList;
+    private Tab _transListTab;
+    private VisualElement _transPopup;
     private Button _openPopupButton;
     private Button _year_L;
     private Button _year_R;
@@ -28,7 +32,7 @@ public class UIManager : MonoBehaviour
     //Runs on startup
     public void Start()
     {
-        TransactionIO.Initialize(vars);
+        TransactionIO.Initialize(vars,template);
         ResetScriptableObject();
         SetVisualElements();
         RegisterUICallbacks();
@@ -39,7 +43,10 @@ public class UIManager : MonoBehaviour
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
         _busSelectedText = _root.Q<Label>("BusinessText");
+        _transListTab = _root.Q<Tab>("TransactionsScreen");
         _transactionList = _root.Q<ListView>("TransactionList");
+        _transactionList.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
+        _transPopup = _root.Q<VisualElement>("TransactionPopup");
         _openPopupButton = _root.Q<Button>("OpenPopupButton");
         _year_L = _root.Q<Button>("YearButton_L");
         _year_R = _root.Q<Button>("YearButton_R");
@@ -63,6 +70,7 @@ public class UIManager : MonoBehaviour
         _year_R.clicked += () => ChangeYear(1);
         _year_R.clicked += () => UpdateSummary();
 
+        _transListTab.selected += (Tab tab) => UpdateTransList();
         _openPopupButton.clicked += () => OpenPopup();
 
         _summaryTab.selected += (Tab tab) => UpdateSummary();
@@ -97,9 +105,15 @@ public class UIManager : MonoBehaviour
         _yearField.value += amount;
     }
 
+    private void UpdateTransList()
+    {
+        Debug.Log("update transaction list event triggered");
+        TransactionIO.UpdateTransactionList(_transactionList);
+    }
     private void OpenPopup()
     {
         Debug.Log("open popup event triggered");
+        _transPopup.RemoveFromClassList("hidden");
     }
 
     private void UpdateSummary()
@@ -142,7 +156,10 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("cancel transaction event triggered");
         ResetScriptableObject();
-        //Close popup window
+        _transPopup.AddToClassList("hidden"); 
+        UpdateTransList();
+        //The transaction list is the only place this cancel button is
+        //If I were to scale the ui up, I would have to refactor this code.
     }
 
     private void EditTransaction()

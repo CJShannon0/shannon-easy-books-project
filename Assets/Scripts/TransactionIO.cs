@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public static class TransactionIO
 {
     static UIVariables vars;
+    static VisualTreeAsset template;
     static string generalPath;
     static string specificPath;
     static StreamReader fileOutput;
     static StreamWriter fileInput;
-    public static void Initialize(UIVariables scriptableObject)
+    public static void Initialize(UIVariables scriptableObject, VisualTreeAsset temp)
     {
         vars = scriptableObject;
         generalPath = Path.Combine(Application.persistentDataPath,"Records");
+        template = temp;
         UpdateIOPaths();
     }
     public static void UpdateIOPaths()
@@ -24,16 +27,17 @@ public static class TransactionIO
 
         Directory.CreateDirectory(generalPath);
         specificPath = Path.Combine(generalPath,vars.businessesList[vars.businessIndex] + ".csv");
-        using (new FileStream(specificPath, FileMode.OpenOrCreate, FileAccess.Write)) { }
-        fileInput = new StreamWriter(specificPath, append: true);
+        using (new FileStream(specificPath, FileMode.OpenOrCreate, FileAccess.Write)) { }    
     }
 
     public static bool InputTransaction()
     {
+        fileInput = new StreamWriter(specificPath, append: true);
         StringBuilder newTrans = new StringBuilder();
 
         if(!TestVarFormats()) {
             Debug.LogError("Test variable formats check failed.");
+            fileInput.Close();
             return false;
         }
         try
@@ -50,6 +54,7 @@ public static class TransactionIO
         catch (Exception)
         {
             Debug.LogError("StreamWriter failed to parse inputs.");
+            fileInput.Close();
             return false;
         }
 
@@ -58,30 +63,62 @@ public static class TransactionIO
             //Debug.Log("Trans String: " + newTrans.ToString());
             fileInput.WriteLine(newTrans.ToString());
             fileInput.Flush();
+            fileInput.Close();
             Debug.Log("Successfully added Transaction");
             return true;
         } 
         catch (Exception)
         {   
             Debug.LogError("StreamWriter could not write transaction to file");
+            fileInput.Close();
             return false;
         }
     }
 
-    public static List<string> GetFileContents()
+   public static bool UpdateTransactionList(ListView listView)
     {
+        var records = new List<string[]>();
+        listView.itemsSource = records;
+        listView.makeItem = () => template.CloneTree();
+        listView.bindItem = (record, index) =>
+        {
+            string[] fields = records[index];
+
+            Label vendor = record.Q<Label>("VendorText");
+            Label date = record.Q<Label>("DateText");
+            Label category = record.Q<Label>("CategoryText");
+            Label notes = record.Q<Label>("NotesText");
+            FloatField amount = record.Q<FloatField>("AmountField");
+
+            date.text = fields[0];
+            vendor.text = fields[1];
+            category.text = Categories.categories[int.Parse(fields[2])];
+            amount.value = float.Parse(fields[3]);
+            notes.text = fields[4];
+        };
+        listView.Rebuild();
+
         fileOutput = new StreamReader(specificPath);    
 
-        List<string> fileContents = new List<string>();
-        string line = fileOutput.ReadLine();
-        while(line != null)
+        try
         {
-            fileContents.Add(line);
-            line = fileOutput.ReadLine();
+            var line = fileOutput.ReadLine();
+            while(line != null)
+            {
+                records.Add(line.Split(",", 5));
+                line = fileOutput.ReadLine();
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("StreamReader failed to update transaction list." + e);
+            fileOutput.Close();
+            return false;   
         }
 
         fileOutput.Close();
-        return fileContents;
+        listView.Rebuild();
+        return true;
     }
 
     private static bool TestVarFormats()
@@ -103,7 +140,7 @@ public static class TransactionIO
         }
 
         //parse date for correct format
-        var formats = new[] { "d/M/yyyy", "dd/M/yyyy", "d/MM/yyyy", "dd/MM/yyyy" };
+        var formats = new[] { "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy", "MM/dd/yyyy", "MMddyyyy"};
         DateTime dt;
         if (!DateTime.TryParseExact(vars.date, formats, null, System.Globalization.DateTimeStyles.None, out dt))
         {

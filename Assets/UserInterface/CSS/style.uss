@@ -86,12 +86,15 @@ TextField > .unity-base-field__input,
 IntegerField > .unity-base-field__input,
 FloatField > .unity-base-field__input,
 DropdownField > .unity-base-field__input {
+    background-color: var(--color-background);
+    font-size: var(--size-small);
+}
+
+.InputField > .unity-base-field__input {
     flex-basis: 50%;
     width: 50%;
     flex-shrink: 0;
     flex-grow: 0;
-    background-color: var(--color-background);
-    font-size: var(--size-small);
 }
 
 TextField,

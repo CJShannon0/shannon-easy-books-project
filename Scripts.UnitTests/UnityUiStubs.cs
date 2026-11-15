@@ -55,6 +55,9 @@ namespace UnityEngine.UIElements
             _children.Add(child);
         }
 
+        public void AddToClassList(string className) { }
+        public void RemoveFromClassList(string className) { }
+
         public T? Q<T>(string name) where T : VisualElement
         {
             return DescendantsAndSelf()

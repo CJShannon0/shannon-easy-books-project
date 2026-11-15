@@ -154,6 +154,7 @@ public class UIManager_Tests
     [InlineData("01/2/2024")]
     [InlineData("1/02/2024")]
     [InlineData("01/02/2024")]
+    [InlineData("01022024")]
     public void TestVarFormats_ReturnsTrueForSupportedDateFormats(string date)
     {
         var variables = CreateTransactionVariables(date: date);
