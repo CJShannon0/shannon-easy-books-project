@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public UIVariables vars;
-    public VisualTreeAsset template;
+    public VisualTreeAsset transRecord;
+    public VisualTreeAsset summEntry;
     //global variables
     private VisualElement _root;
     private Label _busSelectedText;
@@ -32,7 +33,8 @@ public class UIManager : MonoBehaviour
     //Runs on startup
     public void Start()
     {
-        TransactionIO.Initialize(vars,template);
+        TransactionIO.Initialize(vars,transRecord);
+        SummaryCalculator.Initialize(vars,summEntry);
         ResetScriptableObject();
         SetVisualElements();
         RegisterUICallbacks();
@@ -66,10 +68,10 @@ public class UIManager : MonoBehaviour
 
     private void RegisterUICallbacks()
     {
-        _year_L.clicked += () => ChangeYear(-1);
-        _year_L.clicked += () => UpdateSummary(); //If event order is non-ordered, register updateSummary() to a yearField value changed event.
+        _year_L.clicked += () => ChangeYear(-1);        
         _year_R.clicked += () => ChangeYear(1);
-        _year_R.clicked += () => UpdateSummary();
+        //_yearField.RegisterValueChangedCallback(evt => UpdateSummary());
+        //This event triggers before the scriptable object is updated so I can't use it.
 
         _transListTab.selected += (Tab tab) => UpdateTransList();
         _openPopupButton.clicked += () => OpenPopup();
@@ -103,7 +105,8 @@ public class UIManager : MonoBehaviour
     private void ChangeYear(int amount)
     {
         Debug.Log("change year event triggered");
-        _yearField.value += amount;
+        vars.yearSelected += amount;
+        UpdateSummary();
     }
 
     private void UpdateTransList()
@@ -120,11 +123,13 @@ public class UIManager : MonoBehaviour
     private void UpdateSummary()
     {
         Debug.Log("update summary event triggered");
+        SummaryCalculator.UpdateSummaryList(_summaryList);
     }
 
     private void ExportSummary()
     {
         Debug.Log("export summary event triggered");
+        SummaryCalculator.ExportSummary();
     }
 
     //Used to populate dropdown menu

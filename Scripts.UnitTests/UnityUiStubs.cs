@@ -34,6 +34,7 @@ namespace UnityEngine
     {
         public static void Log(object? message) { }
         public static void LogError(object? message) { }
+        public static void LogWarning(object? message) { }
     }
 }
 
@@ -129,6 +130,7 @@ namespace UnityEngine.UIElements
     {
         public FloatField(string name) : base(name) { }
 
+        public string label { get; set; } = string.Empty;
         public float value { get; set; }
     }
 

@@ -16,9 +16,9 @@ MonoBehaviour:
   - None
   businessSelected: None
   businessIndex: 0
-  yearSelected: 0
-  vendor: test
-  date: 04/25/2006
-  amount: 55
+  yearSelected: 2026
+  vendor: 
+  date: 
+  amount: 0
   category: 0
-  notes: test
+  notes: 

@@ -128,7 +128,7 @@ public static class TransactionIO
         return true;
     }
 
-    private static bool TestVarFormats()
+    public static bool TestVarFormats()
     {
         //test int/float variables
         if(vars.amount < 0 ||
@@ -155,5 +155,21 @@ public static class TransactionIO
         }
 
         return true;
+    }
+
+    public static List<string> GetFileContents()
+    {
+        List<string> contents = new List<string>();
+
+        StreamReader fileOutput = new StreamReader(specificPath);
+
+        string line = fileOutput.ReadLine();
+        while(line != null)
+        {
+            contents.Add(line);
+            line = fileOutput.ReadLine();
+        }
+
+        return contents;
     }
 }

@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
     <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:Label text="Transaction Record" name=""/>
-        <ui:ListView name="TransactionList"/>
+        <ui:ListView name="TransactionList" virtualization-method="DynamicHeight"/>
         <ui:Button text="Add" name="OpenPopupButton" style="width: 50%; align-self: flex-end;"/>
         <ui:Instance template="AddTransactionPopup" class="popup" style="top: 25%; left: 30%;"/>
     </ui:VisualElement>
