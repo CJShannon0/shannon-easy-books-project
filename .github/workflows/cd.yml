@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Build-${{ matrix.name }}
-          path: build/${{ matrix.name }}
+          path: build/${{ matrix.targetPlatform }}
           if-no-files-found: error
 
   deploy:

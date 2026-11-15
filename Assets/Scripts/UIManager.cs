@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
     public UIVariables vars;
-    public VisualTreeAsset template;
+    public VisualTreeAsset transRecord;
+    public VisualTreeAsset summEntry;
     //global variables
     private VisualElement _root;
     private Label _busSelectedText;
@@ -32,7 +33,8 @@ public class UIManager : MonoBehaviour
     //Runs on startup
     public void Start()
     {
-        TransactionIO.Initialize(vars,template);
+        TransactionIO.Initialize(vars,transRecord);
+        SummaryCalculator.Initialize(summEntry);
         ResetScriptableObject();
         SetVisualElements();
         RegisterUICallbacks();
@@ -120,6 +122,7 @@ public class UIManager : MonoBehaviour
     private void UpdateSummary()
     {
         Debug.Log("update summary event triggered");
+        SummaryCalculator.UpdateSummaryList(_summaryList);
     }
 
     private void ExportSummary()
