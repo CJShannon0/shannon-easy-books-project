@@ -160,7 +160,7 @@ public class UIManager_Tests
     {
         var variables = CreateTransactionVariables(date: date);
 
-        Assert.True(InvokeTestVarFormats(variables));
+        Assert.True(CallTestVarFormats(variables));
     }
 
     [Theory]
@@ -177,7 +177,7 @@ public class UIManager_Tests
     {
         var variables = CreateTransactionVariables(amount, category, vendor, date);
 
-        Assert.False(InvokeTestVarFormats(variables));
+        Assert.False(CallTestVarFormats(variables));
     }
 
     private static UIVariables CreateTransactionVariables(
@@ -195,7 +195,7 @@ public class UIManager_Tests
         };
     }
 
-    private static bool InvokeTestVarFormats(UIVariables variables)
+    private static bool CallTestVarFormats(UIVariables variables)
     {
         var variablesField = typeof(TransactionIO).GetField(
             "vars",
@@ -203,11 +203,7 @@ public class UIManager_Tests
         Assert.NotNull(variablesField);
         variablesField.SetValue(null, variables);
 
-        var testMethod = typeof(TransactionIO).GetMethod(
-            "TestVarFormats",
-            BindingFlags.Static | BindingFlags.NonPublic);
-        Assert.NotNull(testMethod);
-        return Assert.IsType<bool>(testMethod.Invoke(null, null));
+        return TransactionIO.TestVarFormats();
     }
     #endregion
     #region SummaryCalculator Tests
