@@ -3,6 +3,9 @@
     <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:Label text="Use the dropdown menu to select your business, or click &apos;Add Business&apos;, to add a new one."/>
         <ui:DropdownField label="Business Selected" name="BusinessDropdown"/>
-        <ui:Button text="Add Business" name="AddBusinessButton" style="width: 50%; align-self: center;"/>
+        <ui:Label text="&#10;&#10;&#10;"/>
+        <ui:Label text="Add Business"/>
+        <ui:TextField label="" placeholder-text="name..." name="AddBusinessField" multiline="true" class="InputField" style="flex-direction: row-reverse;"/>
+        <ui:Button text="Add" name="AddBusinessButton" style="width: 50%; align-self: center;"/>
     </ui:VisualElement>
 </ui:UXML>

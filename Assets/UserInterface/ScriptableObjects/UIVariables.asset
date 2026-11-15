@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f0cb2dfdf614447b3efe9a736bbfa5, type: 3}
   m_Name: UIVariables
   m_EditorClassIdentifier: Assembly-CSharp::UIVariables
-  businessesList: []
+  businessesList:
+  - None
   businessSelected: None
+  businessIndex: 0
   yearSelected: 0
-  vendor: 
-  date: 
-  amount: 0
+  vendor: test
+  date: 04/25/2006
+  amount: 55
   category: 0
-  notes: 
+  notes: test

@@ -8,6 +8,7 @@ public class UIVariables : ScriptableObject
     //Logic Variables
     public List<string> businessesList;
     public string businessSelected;
+    public int businessIndex;
     public int yearSelected;
 
     //Transaction temp variables

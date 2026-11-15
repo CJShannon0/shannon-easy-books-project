@@ -1,30 +1,35 @@
-public enum Categories
-{
-    //Revenue
-    Sale,
-    Services,
+using System.Collections.Generic;
 
-    //Expenses
-    Inventory,
-    Advertising,
-    Comissions_fees,
-    Contract_Labor,
-    Employee_Benefits,
-    Health_Insurance,
-    Other_Insurance,
-    Mortgage_Interest,
-    Other_Interest,
-    Legal_Professional_Fees,
-    Office_Expenses,
-    Pension_Profit_Sharing,
-    Rent_of_Machinery,
-    Rent_Other,
-    Repairs_Maintenance,
-    Supplies,
-    Taxes_Liscenses,
-    Travel,
-    Meals,
-    Utilities,
-    Wages_Less_Employment_Credit,
-    Other
+public static class Categories
+{
+    public static string[] categories =
+    {
+        //Revenue
+        "Sales",
+        "Services",
+
+        //Expenses
+        "Inventory",
+        "Advertising",
+        "Commisions/Fees",
+        "Contract Labor",
+        "Employee Benefits",
+        "Health Insurance",
+        "Other Insurance",
+        "Mortgage Interest",
+        "Other Interest",
+        "Legal & Professional Fees",
+        "Office Expenses",
+        "Pension/Profit Sharing",
+        "Rent of Machinery",
+        "Other Rent",
+        "Repairs & Maintenance",
+        "Supplies",
+        "Taxes & Licenses",
+        "Travel",
+        "Meals",
+        "Utilities",
+        "Wages Less Employment Credit",
+        "Other"
+    };
 }
