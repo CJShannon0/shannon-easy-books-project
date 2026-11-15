@@ -200,3 +200,7 @@ TabView {
 .unity-base-dropdown__label {
     font-size: var(--size-small);
 }
+
+.wrap {
+    white-space: normal;
+}
