@@ -1,13 +1,24 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
     <ui:VisualElement name="" style="flex-grow: 1;">
-        <ui:Label text="Summary" name=""/>
-        <ui:VisualElement name="" class="Horizontal" style="justify-content: flex-start; align-items: flex-start; align-self: flex-start;">
+        <ui:VisualElement class="Horizontal" style="flex-grow: 1; justify-content: flex-start; flex-shrink: 0;">
+            <ui:Label text="Summary for business: " name=""/>
+            <ui:Label text="Label" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="businessSelected" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="" class="Horizontal" style="justify-content: flex-start; align-items: flex-start; align-self: flex-start; flex-shrink: 0;">
             <ui:Button text="&lt;" name="YearButton_L"/>
-            <ui:IntegerField label="" value="2026" name="YearIntField" class="YearField" style="font-size: 44px; width: auto; align-items: center;"/>
+            <ui:IntegerField label="" value="2026" name="YearIntField" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" readonly="true" class="YearField" style="font-size: 44px; width: auto; align-items: center;">
+                <Bindings>
+                    <ui:DataBinding property="value" data-source-path="yearSelected" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:IntegerField>
             <ui:Button text="&gt;" name="YearButton_R"/>
         </ui:VisualElement>
-        <ui:ListView name="SummaryListView"/>
+        <ui:ListView name="SummaryListView" virtualization-method="DynamicHeight"/>
         <ui:Button text="Export" name="ExportButton" style="align-self: flex-end;"/>
     </ui:VisualElement>
 </ui:UXML>

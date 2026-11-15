@@ -21,6 +21,8 @@ jobs:
             targetPlatform: WebGL
           - name: Windows
             targetPlatform: StandaloneWindows64
+          - name: Mac
+            targetPlatform: StandaloneOSX
     # For a Unity Personal license, add UNITY_LICENSE, UNITY_EMAIL, and UNITY_PASSWORD
     # as GitHub repository secrets. Use your Unity activation method if you have another license type.
     env:
@@ -73,3 +75,4 @@ jobs:
         run: |
           butler push artifacts/Build-WebGL davideslearning/rize-easy-books-projects:html5
           butler push artifacts/Build-Windows davideslearning/rize-easy-books-projects:windows
+          butler push artifacts/Build-Mac davideslearning/rize-easy-books-projects:osx

@@ -210,4 +210,39 @@ public class UIManager_Tests
         return Assert.IsType<bool>(testMethod.Invoke(null, null));
     }
     #endregion
+    #region SummaryCalculator Tests
+
+    [Fact]
+    public void CalculateTotal_SumsCategoriesForSelectedYearOnly()
+    {
+        SummaryCalculator.vars = new UIVariables { yearSelected = 2024 };
+        var document = new List<string>
+        {
+            "01/02/2024,Acme,0,10,first",
+            "04/15/2024,Acme,0,5,second",
+            "12/31/2024,Acme,1,7,third",
+            "01/01/2023,Acme,0,100,previous year",
+            "01/01/2025,Acme,1,200,next year"
+        };
+
+        var actual = SummaryCalculator.CalculateTotal(document);
+        var expected = new float[Categories.categories.Length];
+        expected[0] = 15;
+        expected[1] = 7;
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void CalculateTotal_ReturnsZeroForEveryCategoryWhenDocumentIsEmpty()
+    {
+        SummaryCalculator.vars = new UIVariables { yearSelected = 2024 };
+
+        var actual = SummaryCalculator.CalculateTotal(new List<string>());
+
+        Assert.Equal(Categories.categories.Length, actual.Length);
+        Assert.All(actual, amount => Assert.Equal(0f, amount));
+    }
+
+    #endregion
 }

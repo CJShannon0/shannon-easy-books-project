@@ -25,6 +25,7 @@
   <ItemGroup>
     <Compile Include="..\Assets\Scripts\UIManager.cs" Link="UIManager.cs" />
     <Compile Include="..\Assets\Scripts\TransactionIO.cs" Link="TransactionIO.cs" />
+    <Compile Include="..\Assets\Scripts\SummaryCalculator.cs" Link="SummaryCalculator.cs" />
     <Compile Include="..\Assets\Scripts\Categories.cs" Link="Categories.cs" />
     <Compile Include="..\Assets\UserInterface\ScriptableObjects\UIVariables.cs" Link="UIVariables.cs" />
   </ItemGroup>

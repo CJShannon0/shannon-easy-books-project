@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     public void Start()
     {
         TransactionIO.Initialize(vars,transRecord);
-        SummaryCalculator.Initialize(summEntry);
+        SummaryCalculator.Initialize(vars,summEntry);
         ResetScriptableObject();
         SetVisualElements();
         RegisterUICallbacks();
@@ -68,10 +68,10 @@ public class UIManager : MonoBehaviour
 
     private void RegisterUICallbacks()
     {
-        _year_L.clicked += () => ChangeYear(-1);
-        _year_L.clicked += () => UpdateSummary(); //If event order is non-ordered, register updateSummary() to a yearField value changed event.
+        _year_L.clicked += () => ChangeYear(-1);        
         _year_R.clicked += () => ChangeYear(1);
-        _year_R.clicked += () => UpdateSummary();
+        //_yearField.RegisterValueChangedCallback(evt => UpdateSummary());
+        //This event triggers before the scriptable object is updated so I can't use it.
 
         _transListTab.selected += (Tab tab) => UpdateTransList();
         _openPopupButton.clicked += () => OpenPopup();
@@ -105,7 +105,8 @@ public class UIManager : MonoBehaviour
     private void ChangeYear(int amount)
     {
         Debug.Log("change year event triggered");
-        _yearField.value += amount;
+        vars.yearSelected += amount;
+        UpdateSummary();
     }
 
     private void UpdateTransList()
@@ -128,6 +129,7 @@ public class UIManager : MonoBehaviour
     private void ExportSummary()
     {
         Debug.Log("export summary event triggered");
+        SummaryCalculator.ExportSummary();
     }
 
     //Used to populate dropdown menu
