@@ -13,5 +13,6 @@
         <ui:Foldout text="Notes" value="false">
             <ui:Label text="Notes Text" name="NotesText"/>
         </ui:Foldout>
+        <ui:IntegerField label="Transaction ID" value="-1" name="TransactionID" class="hidden"/>
     </ui:VisualElement>
 </ui:UXML>

@@ -83,7 +83,7 @@ public static class SummaryCalculator
 
             //[1] = date, [2] = category, [3] = amount
             int year = int.Parse(fields[0].Split("/",3)[2]);
-            Debug.LogWarning(year);
+            //Debug.LogWarning(year);
             if(year == vars.yearSelected)
                 runningTotals[int.Parse(fields[2])] += float.Parse(fields[3]);
         }
