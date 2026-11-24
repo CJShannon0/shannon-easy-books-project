@@ -79,13 +79,13 @@ public static class SummaryCalculator
 
         foreach(string entry in document)
         {
-            string[] fields = entry.Split(",", 5);
+            string[] fields = entry.Split(",");
 
-            //[1] = date, [2] = category, [3] = amount
-            int year = int.Parse(fields[0].Split("/",3)[2]);
-            Debug.LogWarning(year);
+            //[0] = id, [1] = date, [3] = category, [4] = amount
+            int year = int.Parse(fields[1].Split("/",3)[2]);
+            //Debug.LogWarning(year);
             if(year == vars.yearSelected)
-                runningTotals[int.Parse(fields[2])] += float.Parse(fields[3]);
+                runningTotals[int.Parse(fields[3])] += float.Parse(fields[4]);
         }
 
         return runningTotals;

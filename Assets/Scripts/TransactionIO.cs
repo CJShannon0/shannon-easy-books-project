@@ -18,12 +18,15 @@ public static class TransactionIO
         "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy", "MM/dd/yyyy", "MMddyyyy"
     };
 
+    static int listLength = 0;
+
     public static void Initialize(UIVariables scriptableObject, VisualTreeAsset temp)
     {
         vars = scriptableObject;
         generalPath = Path.Combine(Application.persistentDataPath,"Records");
         template = temp;
         UpdateIOPaths();
+        listLength = GetNumEntries();
     }
     public static void UpdateIOPaths()
     {
@@ -46,7 +49,9 @@ public static class TransactionIO
             return false;
         }
         try
-        {        
+        {      
+            listLength += 1;
+            newTrans.Append(listLength + ",");  
             newTrans.Append(
                 DateTime.ParseExact(vars.date, DateFormats, null, System.Globalization.DateTimeStyles.None)
                     .ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) + ",");
@@ -96,12 +101,15 @@ public static class TransactionIO
             Label category = record.Q<Label>("CategoryText");
             Label notes = record.Q<Label>("NotesText");
             FloatField amount = record.Q<FloatField>("AmountField");
+            IntegerField id = record.Q<IntegerField>("TransactionID");
 
-            date.text = fields[0];
-            vendor.text = fields[1];
-            category.text = Categories.categories[int.Parse(fields[2])];
-            amount.value = float.Parse(fields[3]);
-            notes.text = fields[4];
+    
+            id.value = int.Parse(fields[0]);
+            date.text = fields[1];
+            vendor.text = fields[2];
+            category.text = Categories.categories[int.Parse(fields[3])];
+            amount.value = float.Parse(fields[4]);
+            notes.text = fields[5];
         };
         listView.Rebuild();
 
@@ -112,7 +120,7 @@ public static class TransactionIO
             var line = fileOutput.ReadLine();
             while(line != null)
             {
-                records.Add(line.Split(",", 5));
+                records.Add(line.Split(",", 6));
                 line = fileOutput.ReadLine();
             }
         }
@@ -125,6 +133,41 @@ public static class TransactionIO
 
         fileOutput.Close();
         listView.Rebuild();
+        return true;
+    }
+
+    public static bool DeleteTransaction(int id)
+    {
+        List<string> records = GetFileContents();
+
+        listLength = 0;
+        
+        //StreamWriter is used to clear the contents of the file for rewriting.
+        StreamWriter newFileInput = new StreamWriter(specificPath,false);
+        newFileInput.Close();
+
+        //Have to move all records after the deleted one up one line to save memory.
+        foreach(string record in records)
+        {
+            string[] fields = record.Split(",");
+            if(int.Parse(fields[0]) != id)
+            {
+                //I could probably overload InputTransaction() to make code more readable.
+                vars.date = fields[1];
+                vars.vendor = fields[2];
+                vars.category = int.Parse(fields[3]);
+                vars.amount = float.Parse(fields[4]);
+                vars.notes = fields[5];
+                InputTransaction();
+            }
+        }
+
+        vars.date = null;
+        vars.vendor = null;
+        vars.category = 0;
+        vars.amount = 0;
+        vars.notes = null;
+
         return true;
     }
 
@@ -170,6 +213,12 @@ public static class TransactionIO
             line = fileOutput.ReadLine();
         }
 
+        fileOutput.Close();
         return contents;
+    }
+
+    private static int GetNumEntries()
+    {
+        return GetFileContents().Count;
     }
 }
