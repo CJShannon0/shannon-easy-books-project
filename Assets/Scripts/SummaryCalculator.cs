@@ -81,7 +81,7 @@ public static class SummaryCalculator
         {
             string[] fields = entry.Split(",");
 
-            //[1] = date, [3] = category, [4] = amount
+            //[0] = id, [1] = date, [3] = category, [4] = amount
             int year = int.Parse(fields[1].Split("/",3)[2]);
             //Debug.LogWarning(year);
             if(year == vars.yearSelected)

@@ -214,11 +214,11 @@ public class UIManager_Tests
         SummaryCalculator.vars = new UIVariables { yearSelected = 2024 };
         var document = new List<string>
         {
-            "01/02/2024,Acme,0,10,first",
-            "04/15/2024,Acme,0,5,second",
-            "12/31/2024,Acme,1,7,third",
-            "01/01/2023,Acme,0,100,previous year",
-            "01/01/2025,Acme,1,200,next year"
+            "1,01/02/2024,Acme,0,10,first",
+            "2,04/15/2024,Acme,0,5,second",
+            "3,12/31/2024,Acme,1,7,third",
+            "4,01/01/2023,Acme,0,100,previous year",
+            "5,01/01/2025,Acme,1,200,next year"
         };
 
         var actual = SummaryCalculator.CalculateTotal(document);
