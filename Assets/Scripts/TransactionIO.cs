@@ -136,6 +136,41 @@ public static class TransactionIO
         return true;
     }
 
+    public static bool DeleteTransaction(int id)
+    {
+        List<string> records = GetFileContents();
+
+        listLength = 0;
+        
+        //StreamWriter is used to clear the contents of the file for rewriting.
+        StreamWriter newFileInput = new StreamWriter(specificPath,false);
+        newFileInput.Close();
+
+        //Have to move all records after the deleted one up one line to save memory.
+        foreach(string record in records)
+        {
+            string[] fields = record.Split(",");
+            if(int.Parse(fields[0]) != id)
+            {
+                //I could probably overload InputTransaction() to make code more readable.
+                vars.date = fields[1];
+                vars.vendor = fields[2];
+                vars.category = int.Parse(fields[3]);
+                vars.amount = float.Parse(fields[4]);
+                vars.notes = fields[5];
+                InputTransaction();
+            }
+        }
+
+        vars.date = null;
+        vars.vendor = null;
+        vars.category = 0;
+        vars.amount = 0;
+        vars.notes = null;
+
+        return true;
+    }
+
     public static bool TestVarFormats()
     {
         //test int/float variables

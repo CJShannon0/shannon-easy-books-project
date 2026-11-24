@@ -113,6 +113,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("update transaction list event triggered");
         TransactionIO.UpdateTransactionList(_transactionList);
+        SetTransactionRecordButtons();
     }
     private void OpenPopup()
     {
@@ -183,8 +184,32 @@ public class UIManager : MonoBehaviour
         //If I were to scale the ui up, I would have to refactor this code.
     }
 
-    private void EditTransaction()
+    private void EditTransaction(int id)
     {
         Debug.Log("edit transaction event triggered");
+        
+        UpdateTransList();
+    }
+
+    private void DeleteTransaction(int id)
+    {
+        Debug.Log("delete transaction event triggered");
+        TransactionIO.DeleteTransaction(id);
+        UpdateTransList();
+    }
+
+    public void SetTransactionRecordButtons()
+    {
+        List<VisualElement> records = _root.Query<VisualElement>("TransactionRecord").ToList();
+
+        foreach(VisualElement trans in records)
+        {
+            Button deleteButton = trans.Q<Button>("DeleteButton");
+            Button editButton = trans.Q<Button>("EditButton");
+            int id = trans.Q<IntegerField>("TransactionID").value;
+
+            deleteButton.clicked += () => DeleteTransaction(id);
+            deleteButton.clicked += () => EditTransaction(id);
+        }   
     }
 }
