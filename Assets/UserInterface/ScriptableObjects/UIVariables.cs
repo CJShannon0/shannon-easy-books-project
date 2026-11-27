@@ -10,6 +10,7 @@ public class UIVariables : ScriptableObject
     public string businessSelected;
     public int businessIndex;
     public int yearSelected;
+    public int idSelected;
 
     //Transaction temp variables
     public string vendor;

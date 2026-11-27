@@ -257,4 +257,20 @@ public static class TransactionIO
     {
         return GetFileContents().Count;
     }
+
+    public static bool SetTempVariablesForEditing(int id)
+    {
+        List<string> records = GetFileContents();
+        id--;
+        string[] fields = records[id].Split(",");
+
+        vars.idSelected = int.Parse(fields[0]);
+        vars.date = fields[1];
+        vars.vendor = fields[2];
+        vars.category = int.Parse(fields[3]);
+        vars.amount = int.Parse(fields[4]);
+        vars.notes = fields[5];
+
+        return true;
+    }
 }

@@ -204,3 +204,8 @@ TabView {
 .wrap {
     white-space: normal;
 }
+
+.popup {
+    top: 25%;
+    left: 30%;
+}
