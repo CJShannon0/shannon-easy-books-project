@@ -172,6 +172,7 @@ public class UIManager : MonoBehaviour
         {
             //create error message, not part of MVP
         }
+        UpdateTransList();
     }
 
     private void CancelTransaction()
@@ -187,7 +188,7 @@ public class UIManager : MonoBehaviour
     private void EditTransaction(int id)
     {
         Debug.Log("edit transaction event triggered");
-        
+        TransactionIO.DeleteTransaction(id);
         UpdateTransList();
     }
 

@@ -171,6 +171,42 @@ public static class TransactionIO
         return true;
     }
 
+    public static bool EditTransaction(int id)
+    {
+        List<string> records = GetFileContents();
+
+        listLength = 0;
+        
+        //StreamWriter is used to clear the contents of the file for rewriting.
+        StreamWriter newFileInput = new StreamWriter(specificPath,false);
+        newFileInput.Close();
+
+        foreach(string record in records)
+        {
+            string[] fields = record.Split(",");
+            if(int.Parse(fields[0]) != id)
+            {
+                StreamWriter edit = new StreamWriter(specificPath);
+                edit.WriteLine(record);
+                edit.Close();
+            }
+            else
+            {
+                listLength = int.Parse(fields[0]) - 1;
+                InputTransaction();
+            }
+        }
+
+        vars.date = null;
+        vars.vendor = null;
+        vars.category = 0;
+        vars.amount = 0;
+        vars.notes = null;
+        listLength = records.Count;
+
+        return true;
+    }
+
     public static bool TestVarFormats()
     {
         //test int/float variables
