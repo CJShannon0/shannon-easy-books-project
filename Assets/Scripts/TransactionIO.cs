@@ -87,11 +87,16 @@ public static class TransactionIO
         }
     }
 
-   public static bool UpdateTransactionList(ListView listView)
+   public static bool UpdateTransactionList(ListView listView, Action<VisualElement> onItemCreated)
     {
         var records = new List<string[]>();
         listView.itemsSource = records;
-        listView.makeItem = () => template.CloneTree();
+        listView.makeItem = () =>
+        {
+            VisualElement record = template.CloneTree();
+            onItemCreated(record);
+            return record;
+        };
         listView.bindItem = (record, index) =>
         {
             string[] fields = records[index];
@@ -186,7 +191,7 @@ public static class TransactionIO
             string[] fields = record.Split(",");
             if(int.Parse(fields[0]) != id)
             {
-                StreamWriter edit = new StreamWriter(specificPath);
+                StreamWriter edit = new StreamWriter(specificPath, true);
                 edit.WriteLine(record);
                 edit.Close();
             }

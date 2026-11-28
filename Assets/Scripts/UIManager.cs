@@ -94,6 +94,7 @@ public class UIManager : MonoBehaviour
         _transListTab.selected += (Tab tab) => UpdateTransList();
         _openAddTransPopupButton.clicked += () => OpenPopup(_transPopup);
         _closeAddTransPopupButton.clicked += () => ClosePopup(_transPopup);
+
         _editTransButton.clicked += () => EditTransaction();
         _closeEditTransPopupButton.clicked += () => ClosePopup(_editPopup);
         _closeEditTransPopupButton.clicked += () => ResetScriptableObject();
@@ -130,8 +131,7 @@ public class UIManager : MonoBehaviour
     private void UpdateTransList()
     {
         Debug.Log("update transaction list event triggered");
-        TransactionIO.UpdateTransactionList(_transactionList);
-        SetTransactionRecordButtons();
+        TransactionIO.UpdateTransactionList(_transactionList, SetTransactionRecordEvents);
     }
     private void OpenPopup(VisualElement panel)
     {
@@ -211,8 +211,9 @@ public class UIManager : MonoBehaviour
     private void EditTransaction()
     {
         Debug.Log("edit transaction event triggered");
-
+        TransactionIO.EditTransaction(vars.idSelected);
         UpdateTransList();
+        ClosePopup(_editPopup);
     }
 
     private void DeleteTransaction(int id)
@@ -222,19 +223,17 @@ public class UIManager : MonoBehaviour
         UpdateTransList();
     }
 
-    public void SetTransactionRecordButtons()
+    private void SetTransactionRecordEvents(VisualElement trans)
     {
-        List<VisualElement> records = _root.Query<VisualElement>("TransactionRecord").ToList();
+        IntegerField idField = trans.Q<IntegerField>("TransactionID");
+        Button deleteButton = trans.Q<Button>("DeleteButton");
+        Button editButton = trans.Q<Button>("EditButton");
 
-        foreach(VisualElement trans in records)
+        deleteButton.clicked += () => DeleteTransaction(idField.value);
+        editButton.clicked += () =>
         {
-            Button deleteButton = trans.Q<Button>("DeleteButton");
-            Button editButton = trans.Q<Button>("EditButton");
-            int id = trans.Q<IntegerField>("TransactionID").value;
-
-            deleteButton.clicked += () => DeleteTransaction(id);
-            editButton.clicked += () => OpenPopup(_editPopup);
-            editButton.clicked += () => TransactionIO.SetTempVariablesForEditing(id);
-        }   
+            TransactionIO.SetTempVariablesForEditing(idField.value);
+            OpenPopup(_editPopup);
+        };
     }
 }
