@@ -25,18 +25,14 @@ public class UIManager_Tests
         setVisualElements.Invoke(uiManager, null);
 
         var fields = typeof(UIManager).GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-        var deferredField = fields.Single(field => field.Name == "editTransButtons");
-        Assert.Null(deferredField.GetValue(uiManager));
+        Assert.IsType<Button>(
+            fields.Single(field => field.Name == "_editTransButton").GetValue(uiManager));
 
         var addTransactionButtons = Assert.IsType<List<Button>>(
             fields.Single(field => field.Name == "_addTransButtons").GetValue(uiManager));
-        var cancelButtons = Assert.IsType<List<Button>>(
-            fields.Single(field => field.Name == "_cancelButtons").GetValue(uiManager));
         Assert.Equal(2, addTransactionButtons.Count);
-        Assert.Single(cancelButtons);
 
         var unassignedFields = fields
-            .Where(field => field.Name != "editTransButtons")
             .Where(field => field.GetValue(uiManager) is null)
             .Select(field => field.Name);
 

@@ -87,11 +87,16 @@ public static class TransactionIO
         }
     }
 
-   public static bool UpdateTransactionList(ListView listView)
+   public static bool UpdateTransactionList(ListView listView, Action<VisualElement> onItemCreated)
     {
         var records = new List<string[]>();
         listView.itemsSource = records;
-        listView.makeItem = () => template.CloneTree();
+        listView.makeItem = () =>
+        {
+            VisualElement record = template.CloneTree();
+            onItemCreated(record);
+            return record;
+        };
         listView.bindItem = (record, index) =>
         {
             string[] fields = records[index];
@@ -171,6 +176,42 @@ public static class TransactionIO
         return true;
     }
 
+    public static bool EditTransaction(int id)
+    {
+        List<string> records = GetFileContents();
+
+        listLength = 0;
+        
+        //StreamWriter is used to clear the contents of the file for rewriting.
+        StreamWriter newFileInput = new StreamWriter(specificPath,false);
+        newFileInput.Close();
+
+        foreach(string record in records)
+        {
+            string[] fields = record.Split(",");
+            if(int.Parse(fields[0]) != id)
+            {
+                StreamWriter edit = new StreamWriter(specificPath, true);
+                edit.WriteLine(record);
+                edit.Close();
+            }
+            else
+            {
+                listLength = int.Parse(fields[0]) - 1;
+                InputTransaction();
+            }
+        }
+
+        vars.date = null;
+        vars.vendor = null;
+        vars.category = 0;
+        vars.amount = 0;
+        vars.notes = null;
+        listLength = records.Count;
+
+        return true;
+    }
+
     public static bool TestVarFormats()
     {
         //test int/float variables
@@ -220,5 +261,21 @@ public static class TransactionIO
     private static int GetNumEntries()
     {
         return GetFileContents().Count;
+    }
+
+    public static bool SetTempVariablesForEditing(int id)
+    {
+        List<string> records = GetFileContents();
+        id--;
+        string[] fields = records[id].Split(",");
+
+        vars.idSelected = int.Parse(fields[0]);
+        vars.date = fields[1];
+        vars.vendor = fields[2];
+        vars.category = int.Parse(fields[3]);
+        vars.amount = int.Parse(fields[4]);
+        vars.notes = fields[5];
+
+        return true;
     }
 }

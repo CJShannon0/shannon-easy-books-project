@@ -5,7 +5,7 @@
             <ui:Label text="Add a Transaction"/>
             <ui:VisualElement class="Horizontal" style="flex-grow: 1; justify-content: flex-end;">
                 <ui:Button text="Add" name="AddTransactionButton"/>
-                <ui:Button text="Cancel" name="CancelButton"/>
+                <ui:Button text="Cancel" name="CloseAddTransactionPopupButton"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:TextField label="Vendor" placeholder-text="enter here..." name="VendorField" multiline="true" data-source="project://database/Assets/UserInterface/ScriptableObjects/UIVariables.asset?fileID=11400000&amp;guid=b5c4d9e43c0bb5d4590ce57b048f76ee&amp;type=2#UIVariables" class="InputField">

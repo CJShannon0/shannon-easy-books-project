@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,22 +13,30 @@ public class UIManager : MonoBehaviour
     //global variables
     private VisualElement _root;
     private Label _busSelectedText;
+
     private ListView _transactionList;
     private Tab _transListTab;
+
     private VisualElement _transPopup;
-    private Button _openPopupButton;
+    private Button _openAddTransPopupButton;
+    private Button _closeAddTransPopupButton;
+
+    private VisualElement _editPopup;
+    private Button _editTransButton;
+    private Button _closeEditTransPopupButton;
+
     private Button _year_L;
     private Button _year_R;
     private IntegerField _yearField;
     private Tab _summaryTab;
     private ListView _summaryList;
     private Button _exportButton;
+
     private DropdownField _businessDropdown;
     private TextField _addBusinessField;
     private Button _addBusinessButton;
     private List<Button> _addTransButtons;
-    private List<Button> _cancelButtons;
-    private List<Button> editTransButtons;
+
 
 
     //Runs on startup
@@ -45,23 +54,32 @@ public class UIManager : MonoBehaviour
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
         _busSelectedText = _root.Q<Label>("BusinessText");
+        
         _transListTab = _root.Q<Tab>("TransactionsScreen");
         _transactionList = _root.Q<ListView>("TransactionList");
         _transactionList.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
+        
         _transPopup = _root.Q<VisualElement>("TransactionPopup");
-        _openPopupButton = _root.Q<Button>("OpenPopupButton");
+        _openAddTransPopupButton = _root.Q<Button>("OpenAddTransactionPopupButton");
+        _closeAddTransPopupButton = _root.Q<Button>("CloseAddTransactionPopupButton");
+        
+        _editPopup = _root.Q<VisualElement>("EditTransactionPopup");
+        _editTransButton = _root.Q<Button>("EditTransactionButton");
+        _closeEditTransPopupButton = _root.Q<Button>("CloseEditTransactionPopupButton");
+
         _year_L = _root.Q<Button>("YearButton_L");
         _year_R = _root.Q<Button>("YearButton_R");
         _yearField = _root.Q<IntegerField>("YearIntField");
         _summaryTab = _root.Q<Tab>("SummaryScreen");
         _summaryList = _root.Q<ListView>("SummaryListView");
-        _businessDropdown = _root.Q<DropdownField>("BusinessDropdown");
+       
         _exportButton = _root.Q<Button>("ExportButton");
+
         _addBusinessField = _root.Q<TextField>("AddBusinessField");
         _addBusinessButton = _root.Q<Button>("AddBusinessButton");
+        _businessDropdown = _root.Q<DropdownField>("BusinessDropdown");
 
         _addTransButtons = _root.Query<Button>("AddTransactionButton").ToList();
-        _cancelButtons = _root.Query<Button>("CancelButton").ToList();
 
         //Edit transaction buttons need to be set after the list is constructed
     }
@@ -74,7 +92,12 @@ public class UIManager : MonoBehaviour
         //This event triggers before the scriptable object is updated so I can't use it.
 
         _transListTab.selected += (Tab tab) => UpdateTransList();
-        _openPopupButton.clicked += () => OpenPopup();
+        _openAddTransPopupButton.clicked += () => OpenPopup(_transPopup);
+        _closeAddTransPopupButton.clicked += () => ClosePopup(_transPopup);
+
+        _editTransButton.clicked += () => EditTransaction();
+        _closeEditTransPopupButton.clicked += () => ClosePopup(_editPopup);
+        _closeEditTransPopupButton.clicked += () => ResetScriptableObject();
 
         _summaryTab.selected += (Tab tab) => UpdateSummary();
         _exportButton.clicked += () => ExportSummary();
@@ -85,10 +108,6 @@ public class UIManager : MonoBehaviour
         foreach(Button b in _addTransButtons)
         {
             b.clicked += () => AddTransaction();
-        }
-        foreach(Button b in _cancelButtons)
-        {
-            b.clicked += () => CancelTransaction();
         }
 
         //Edit transaction buttons need to be registered need to be set after the list is contructed
@@ -112,15 +131,19 @@ public class UIManager : MonoBehaviour
     private void UpdateTransList()
     {
         Debug.Log("update transaction list event triggered");
-        TransactionIO.UpdateTransactionList(_transactionList);
-        SetTransactionRecordButtons();
+        TransactionIO.UpdateTransactionList(_transactionList, SetTransactionRecordEvents);
     }
-    private void OpenPopup()
+    private void OpenPopup(VisualElement panel)
     {
         Debug.Log("open popup event triggered");
-        _transPopup.RemoveFromClassList("hidden");
+        panel.RemoveFromClassList("hidden");
     }
 
+    private void ClosePopup(VisualElement panel)
+    {
+        Debug.Log("close popup event triggered");
+        panel.AddToClassList("hidden");
+    }
     private void UpdateSummary()
     {
         Debug.Log("update summary event triggered");
@@ -172,6 +195,7 @@ public class UIManager : MonoBehaviour
         {
             //create error message, not part of MVP
         }
+        UpdateTransList();
     }
 
     private void CancelTransaction()
@@ -184,11 +208,12 @@ public class UIManager : MonoBehaviour
         //If I were to scale the ui up, I would have to refactor this code.
     }
 
-    private void EditTransaction(int id)
+    private void EditTransaction()
     {
         Debug.Log("edit transaction event triggered");
-        
+        TransactionIO.EditTransaction(vars.idSelected);
         UpdateTransList();
+        ClosePopup(_editPopup);
     }
 
     private void DeleteTransaction(int id)
@@ -198,18 +223,17 @@ public class UIManager : MonoBehaviour
         UpdateTransList();
     }
 
-    public void SetTransactionRecordButtons()
+    private void SetTransactionRecordEvents(VisualElement trans)
     {
-        List<VisualElement> records = _root.Query<VisualElement>("TransactionRecord").ToList();
+        IntegerField idField = trans.Q<IntegerField>("TransactionID");
+        Button deleteButton = trans.Q<Button>("DeleteButton");
+        Button editButton = trans.Q<Button>("EditButton");
 
-        foreach(VisualElement trans in records)
+        deleteButton.clicked += () => DeleteTransaction(idField.value);
+        editButton.clicked += () =>
         {
-            Button deleteButton = trans.Q<Button>("DeleteButton");
-            Button editButton = trans.Q<Button>("EditButton");
-            int id = trans.Q<IntegerField>("TransactionID").value;
-
-            deleteButton.clicked += () => DeleteTransaction(id);
-            deleteButton.clicked += () => EditTransaction(id);
-        }   
+            TransactionIO.SetTempVariablesForEditing(idField.value);
+            OpenPopup(_editPopup);
+        };
     }
 }

@@ -1,10 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="AddTransactionPopup" src="project://database/Assets/UserInterface/UXML/partial/AddTransactionPopup.uxml?fileID=9197481963319205126&amp;guid=3ef8b0e3528dbd6448c48a04b9152006&amp;type=3#AddTransactionPopup"/>
+    <ui:Template name="EditTransactionPopup" src="project://database/Assets/UserInterface/UXML/partial/EditTransactionPopup.uxml?fileID=9197481963319205126&amp;guid=fd91a47d57facbb46979ecd675db8cd8&amp;type=3#EditTransactionPopup"/>
     <Style src="project://database/Assets/UserInterface/CSS/style.uss?fileID=7433441132597879392&amp;guid=7f29b78d9de3572409fe914fc6b8af43&amp;type=3#style"/>
     <ui:VisualElement name="" style="flex-grow: 1;">
         <ui:Label text="Transaction Record" name=""/>
         <ui:ListView name="TransactionList" virtualization-method="DynamicHeight"/>
-        <ui:Button text="Add" name="OpenPopupButton" style="width: 50%; align-self: flex-end;"/>
-        <ui:Instance template="AddTransactionPopup" class="popup" style="top: 25%; left: 30%;"/>
+        <ui:Button text="Add" name="OpenAddTransactionPopupButton" style="width: 50%; align-self: flex-end;"/>
+        <ui:Instance template="AddTransactionPopup" class="popup"/>
+        <ui:Instance template="EditTransactionPopup" class="popup"/>
     </ui:VisualElement>
 </ui:UXML>
